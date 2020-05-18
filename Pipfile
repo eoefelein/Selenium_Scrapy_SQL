@@ -10,6 +10,10 @@ scrapy = "*"
 selenium = "*"
 lxml = "*"
 bs4 = "*"
+pandas = "*"
+pymysql = "*"
+sqlalchemy= "*"
+numpy = "*"
 
 [requires]
 python_version = "3.8"
