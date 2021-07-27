@@ -1,4 +1,5 @@
 # pylint: skip-file
+import os
 import pandas as pd
 
 import dash
@@ -12,11 +13,8 @@ from plotly.graph_objs import *
 import plotly.offline as offline
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 
-from config import mapbox_access_token
-
-# mapbox_access_token = "pk.eyJ1IjoiZW9lZmVsZWluIiwiYSI6ImNrNXFvdnNlZDA0cHQzcXF3MTFqNXZ3bWEifQ.cJrMnx5wyabIklvfy_gtuw"
-
-df = pd.read_csv("clean_df.csv")
+mapbox_access_token = os.getenv("MAPBOX_TOKEN")
+df = pd.read_csv("app/clean_df.csv")
 
 
 def calculate_rolling_avg_column(df, column, new_column):
@@ -210,7 +208,7 @@ app.layout = html.Div(
                         ),
                         html.Iframe(
                             id="tiny-cluster-map",
-                            srcDoc=open("Tiny_House_Cluster.html", "r").read(),
+                            srcDoc=open("app/Tiny_House_Cluster.html", "r").read(),
                             width="100%",
                             height="600",
                         ),
@@ -253,7 +251,9 @@ app.layout = html.Div(
                                 ),
                                 html.Iframe(
                                     id="tiny-scatter-map",
-                                    srcDoc=open("Tiny_House_Scatter.html", "r").read(),
+                                    srcDoc=open(
+                                        "app/Tiny_House_Scatter.html", "r"
+                                    ).read(),
                                     width="100%",
                                     height="600",
                                 ),
@@ -305,4 +305,4 @@ def update_figure(selected_variable):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=False, host="0.0.0.0", port=8080, use_reloader=False)
+    app.run_server(debug=True, host="0.0.0.0", port=8080, use_reloader=False)
