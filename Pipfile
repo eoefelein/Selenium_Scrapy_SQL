@@ -13,6 +13,7 @@ pipenv-to-requirements = "*"
 pandas = "*"
 dash = "*"
 plotly = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
