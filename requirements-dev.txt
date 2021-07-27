@@ -10,6 +10,7 @@
 # `Pipfile.lock` and then regenerate `requirements*.txt`.
 ################################################################################
 
-dash
-pandas
-plotly
+black
+pipenv-to-requirements
+pre-commit
+pylint
