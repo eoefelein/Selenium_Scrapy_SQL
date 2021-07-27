@@ -14,8 +14,9 @@ Run the app locally in dev mode with `pipenv run python app/app.py`
 ## Deploy to GCP
 ### Build and Deploy to GCR
 To select you account and project, run `gcloud init`  
-To get and save your project id, run `PROJECT=$(gcloud config get-value project)`  
-To get the GCR tag, run `GCR_TAG=gcr.io/$PROJECT/my-app`  
+Set a default region.  
+To get and save your project id, run `export PROJECT=$(gcloud config get-value project)`  
+To get the GCR tag, run `export GCR_TAG=gcr.io/$PROJECT/my-app`  
 To submit the build to GCP Cloud Build, run `gcloud builds submit --tag $GCR_TAG`  
 To see the GCR tag, run `echo $GCR_TAG`  
 
@@ -28,3 +29,21 @@ Add the Mapbox token as an environment variables.
 Select "Allow HTTP traffic" for a public deployment.  
 
 
+### Automatically Deploy to GCE and Start Container (option 2)
+
+Run:
+```
+gcloud compute instances create-with-container tiny-house \
+  --machine-type e2-small \
+  --container-image $GCR_TAG \
+  --tags dash-server \
+  --container-env-file .env
+
+```
+
+Run:
+```
+gcloud compute firewall-rules create dash-allow-http \
+  --allow tcp:80 \
+  --target-tags dash-server
+``` 
