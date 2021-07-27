@@ -10,3 +10,21 @@ To run tests, run `pipenv run pytest --cov-config=.coveragerc --cov=resc`
 Copy `demo.env` to `.env`: `cp demo.env .env`  
 Change `MAPBOX_TOKEN` in `.env` to your Mapbox Token  
 Run the app locally in dev mode with `pipenv run python app/app.py`  
+
+## Deploy to GCP
+### Build and Deploy to GCR
+To select you account and project, run `gcloud init`  
+To get and save your project id, run `PROJECT=$(gcloud config get-value project)`  
+To get the GCR tag, run `GCR_TAG=gcr.io/$PROJECT/my-app`  
+To submit the build to GCP Cloud Build, run `gcloud builds submit --tag $GCR_TAG`  
+To see the GCR tag, run `echo $GCR_TAG`  
+
+### Manually Deploy to GCE and Start Container option 1)
+Go to "Compute Engine" in the GCP UI and select "CREATE INSTANCE".  
+In the options select the checkbox "Deploy a container image to this VM instance."  
+Paste in the GCR tag in the "Container Image" field.  
+Click "Advanced container options".  
+Add the Mapbox token as an environment variables.  
+Select "Allow HTTP traffic" for a public deployment.  
+
+
