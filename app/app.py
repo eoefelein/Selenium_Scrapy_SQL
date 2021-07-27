@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+# pylint: skip-file
 import pandas as pd
 
 import dash
@@ -14,6 +13,7 @@ import plotly.offline as offline
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 
 from config import mapbox_access_token
+
 # mapbox_access_token = "pk.eyJ1IjoiZW9lZmVsZWluIiwiYSI6ImNrNXFvdnNlZDA0cHQzcXF3MTFqNXZ3bWEifQ.cJrMnx5wyabIklvfy_gtuw"
 
 df = pd.read_csv("clean_df.csv")
@@ -67,9 +67,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output, State, ClientsideFunction
 
-app = dash.Dash(
-    __name__,
-)
+app = dash.Dash(__name__,)
 
 server = app.server
 app.config.suppress_callback_exceptions = True
@@ -99,10 +97,7 @@ app.layout = html.Div(
         html.Div(id="output-clientside"),
         html.Div(
             [
-                html.Div(
-                    [],
-                    className="one-third column",
-                ),
+                html.Div([], className="one-third column",),
                 html.Div(
                     [
                         html.Div(
@@ -274,9 +269,7 @@ app.layout = html.Div(
                                     ],
                                     value="trending_avg_price",
                                 ),
-                                dcc.Graph(
-                                    id="tiny-line-chart",
-                                ),
+                                dcc.Graph(id="tiny-line-chart",),
                             ],
                             className="pretty_container three columns",
                         ),
@@ -310,5 +303,6 @@ def update_figure(selected_variable):
     }
     return figure
 
+
 if __name__ == "__main__":
-    app.run_server(debug=False, host='0.0.0.0', port=8080, use_reloader=False)
+    app.run_server(debug=False, host="0.0.0.0", port=8080, use_reloader=False)
