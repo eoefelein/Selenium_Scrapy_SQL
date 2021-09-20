@@ -15,8 +15,6 @@ from plotly.graph_objs import *
 import plotly.offline as offline
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 
-# mapbox_access_token = "pk.eyJ1IjoiZW9lZmVsZWluIiwiYSI6ImNrNXFvdnNlZDA0cHQzcXF3MTFqNXZ3bWEifQ.cJrMnx5wyabIklvfy_gtuw"
-
 mapbox_access_token = os.getenv("MAPBOX_TOKEN")
 
 df = pd.read_csv("clean_df.csv")
@@ -123,7 +121,7 @@ app.layout = html.Div(
                         ),
                         html.A(
                             html.Button("The Code", id="learn-more-button"),
-                            href="https://github.com/eoefelein/Selenium_Scrapy_SQL/tree/master/app",
+                            href="https://github.com/eoefelein/Scrapy_Dash_ETL_Pipeline_and_Dashboard",
                         )
                     ],
                     className="one-third column",
