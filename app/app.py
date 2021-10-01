@@ -1,12 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-import pandas as pd
 import os
+import pandas as pd
 
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from dash.dependencies import Input, Output, State, ClientsideFunction
 
 import plotly
 import plotly.express as px
@@ -16,7 +13,8 @@ import plotly.offline as offline
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 
 mapbox_access_token = os.getenv("MAPBOX_TOKEN")
-df = pd.read_csv("clean_df.csv")
+df = pd.read_csv("app/clean_df.csv")
+
 
 def calculate_rolling_avg_column(df, column, new_column):
     df[new_column] = None
@@ -57,13 +55,19 @@ trace3 = go.Pie(
     name="Property Type",
 )
 
+
 df = df.sort_values(by="createdat")
 
-app = dash.Dash(
-    __name__,
-)
+
+import dash
+import dash_html_components as html
+import dash_core_components as dcc
+from dash.dependencies import Input, Output, State, ClientsideFunction
+
+app = dash.Dash(__name__,)
 
 server = app.server
+app.config.suppress_callback_exceptions = True
 
 layout = dict(
     autosize=True,
@@ -90,10 +94,7 @@ app.layout = html.Div(
         html.Div(id="output-clientside"),
         html.Div(
             [
-                html.Div(
-                    [],
-                    className="one-third column",
-                ),
+                html.Div([], className="one-third column",),
                 html.Div(
                     [
                         html.Div(
@@ -210,7 +211,7 @@ app.layout = html.Div(
                         ),
                         html.Iframe(
                             id="tiny-cluster-map",
-                            srcDoc=open("Tiny_House_Cluster.html", "r").read(),
+                            srcDoc=open("app/Tiny_House_Cluster.html", "r").read(),
                             width="100%",
                             height="600",
                         ),
@@ -253,7 +254,9 @@ app.layout = html.Div(
                                 ),
                                 html.Iframe(
                                     id="tiny-scatter-map",
-                                    srcDoc=open("Tiny_House_Scatter.html", "r").read(),
+                                    srcDoc=open(
+                                        "app/Tiny_House_Scatter.html", "r"
+                                    ).read(),
                                     width="100%",
                                     height="600",
                                 ),
@@ -269,9 +272,7 @@ app.layout = html.Div(
                                     ],
                                     value="trending_avg_price",
                                 ),
-                                dcc.Graph(
-                                    id="tiny-line-chart",
-                                ),
+                                dcc.Graph(id="tiny-line-chart",),
                             ],
                             className="pretty_container three columns",
                         ),
@@ -306,7 +307,5 @@ def update_figure(selected_variable):
     return figure
 
 
-# application = app.server
-
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=True, host="0.0.0.0", port=8080, use_reloader=False)
