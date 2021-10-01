@@ -16,7 +16,6 @@ import plotly.offline as offline
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 
 mapbox_access_token = os.getenv("MAPBOX_TOKEN")
-
 df = pd.read_csv("clean_df.csv")
 
 def calculate_rolling_avg_column(df, column, new_column):
@@ -116,7 +115,7 @@ app.layout = html.Div(
                 html.Div(
                     [
                         html.A(
-                            html.Button("See the Source", id="learn-more-button"),
+                            html.Button("See the Source", id="data-button"),
                             href="https://tinyhouselistings.com/",
                         ),
                         html.A(
@@ -310,4 +309,4 @@ def update_figure(selected_variable):
 # application = app.server
 
 if __name__ == "__main__":
-    app.run_server(debug=False, host='0.0.0.0', port=8080)
+    app.run_server(debug=True)
