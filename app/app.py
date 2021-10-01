@@ -136,7 +136,7 @@ app.layout = html.Div(
             [
                 html.Div(
                     html.P(
-                        "This project looks at the emerging tiny house trend, clustering homes by price, square footage and property type to understand where and how this trend is being realized across the country. Click the stack icon to the right of the Tiny House Clusters map to view each cluster. The designated states within each layer are the states for which the desingated variable proved to be spatially correlated.",
+                        "This project looks at the emerging tiny house trend, clustering homes by price, square footage and property type to understand where and how this trend is being realized across the country. Click the stack icon to the right of the Tiny House Clusters map to view each cluster. The designated states within each layer are the states for which the designated variable proved to be spatially correlated.",
                         style={"font-family": "Courier New"},
                     ),
                     className="pretty_container four columns",
